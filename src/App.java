@@ -12,19 +12,14 @@ public class App {
     public static void main(String[] args){     
         
         String strPath = "C:\\test";     
-        File path = new File(strPath);  
-        Product product = new Product();
+        File path = new File(strPath);          
         List<Product> list = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path + "\\in.txt"))) {
             String line = br.readLine();
             while (line != null) {
-                String[] linesVet = line.split(",");
-                product.setName(linesVet[0]);
-                product.setPrice(Double.valueOf(linesVet[1]));
-                product.setQuantity(Integer.valueOf(linesVet[2]));
-                list.add(product);
-                
+                String[] linesVet = line.split(",");               
+                list.add(new Product(linesVet[0],Double.valueOf(linesVet[1]) ,Integer.valueOf(linesVet[2])));                       
                 line = br.readLine();
             }
             
@@ -33,7 +28,7 @@ public class App {
             
             try(BufferedWriter bw = new BufferedWriter(new FileWriter(strPath + "\\out\\summary.txt"))){
                 for(Product prod : list){
-                    bw.write(prod.getName());
+                    bw.write(prod.getName()+", ");
                     bw.write(String.valueOf(prod.totalValeu()));
                     bw.newLine();
                 }                
